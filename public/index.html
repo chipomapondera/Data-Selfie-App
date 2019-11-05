@@ -19,11 +19,17 @@
         <input id="mood" placeholder="your mood"/>
         <button id="submit">submit</button>
         <script>
-                let lat, lon
-                const button = document.getElementById('submit'); 
+            function setup() {
+                noCanvas();
+                const video = createCapture(VIDEO);
+                video.size(320, 240);
+                let lat, lon;
+                const button = document.getElementById('submit');
                 button.addEventListener('click', async event => {
                     const mood = document.getElementById('mood').value;
-                    const data = {lat, lon, mood};
+                    video.loadPixels();
+                    const image64 = video.canvas.toDataURL();
+                    const data = {lat, lon, mood, image64};
                     const options = {
                         method: 'POST',
                         headers: {
@@ -37,7 +43,7 @@
                 });
                 if ("geolocation" in navigator) {
                     console.log('geolocation available')
-                    navigator.geolocation.getCurrentPosition(async position =>{
+                    navigator.geolocation.getCurrentPosition(position => {
                         lat = position.coords.latitude;
                         lon = position.coords.longitude;
                         document.getElementById('latitude').textContent = lat;
@@ -47,6 +53,7 @@
                 } else {
                     console.log('geolocation unavailable')
                 }
-            </script>
+            }
+        </script>
     </body>
 </html>
