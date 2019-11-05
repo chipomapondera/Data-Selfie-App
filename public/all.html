@@ -8,6 +8,7 @@
     </head>
     <body>
         <h1>Data Selfie App</h1>
+        <div><a href="/">enter</a> | <a href="/all.html">list</a></div>
         <script>
             getData();
             async function getData() {
@@ -15,7 +16,7 @@
                 const data = await response.json();
 
                 for (item of data) {
-                    const root = document.createElement('div');
+                    const root = document.createElement('p');
                     const mood = document.createElement('div');
                     const geo = document.createElement('div');
                     const date = document.createElement('div');
